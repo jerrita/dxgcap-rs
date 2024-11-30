@@ -31,6 +31,22 @@ pub struct BGRA8 {
     pub a: u8,
 }
 
+#[cfg(feature = "cv")]
+mod cv {
+    use opencv::core::DataType;
+    unsafe impl DataType for super::BGRA8 {
+        fn opencv_depth() -> i32 {
+            8
+        }
+    
+        fn opencv_channels() -> i32 {
+            4
+        }
+    }
+}
+#[cfg(feature = "cv")]
+pub use cv::*;
+
 /// Possible errors when capturing
 #[derive(Debug)]
 pub enum CaptureError {
